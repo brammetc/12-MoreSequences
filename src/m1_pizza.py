@@ -30,11 +30,11 @@ def main():
     #        RE-commenting out the previous test to reduce the output.
     # -------------------------------------------------------------------------
 
-    run_test_generate_points_on_circle()
-    run_test_draw_points_on_circle()
-    run_test_pizza()
+    # run_test_generate_points_on_circle()
+    # run_test_draw_points_on_circle()
+    # run_test_pizza()
     # run_test_polygon()
-    # run_test_fancy_polygon()
+    run_test_fancy_polygon()
 
 
 def run_test_generate_points_on_circle():
@@ -362,7 +362,7 @@ def pizza(window, circle, number_of_slices, color, thickness):
 def run_test_polygon():
     """ Tests the   polygon   function. """
     # -------------------------------------------------------------------------
-    # TODO: 7. Implement this TEST function.
+    # DONE: 7. Implement this TEST function.
     #   It TESTS the   polygon   function defined below.
     #   Include at least ** 1 ** ADDITIONAL test (that YOU write).
     #
@@ -391,12 +391,31 @@ def run_test_polygon():
 
     window.close_on_mouse_click()
 
+    # Tests 3:
+    title = ('POLYGON tests 3:  4 segments with thick black lines;')
+    window = rg.RoseWindow(400, 400, title)
+
+    circle = rg.Circle(rg.Point(200, 200), 120)
+    circle.outline_thickness = 1
+    circle.fill_color = 'lime green'
+    polygon(window, circle, 4, 'black', 5)
+    window.close_on_mouse_click()
+
     # -------------------------------------------------------------------------
     # Test 3:  (YOU write THIS test)
     # -------------------------------------------------------------------------
 
 
 def polygon(window, circle, number_of_segments, color, thickness):
+    circle.attach_to(window)
+    points = generate_points_on_circle(circle, number_of_segments)
+    for k in range(len(points)):
+        line = rg.Line(points[k], points[k - 1])
+        line.attach_to(window)
+        line.color = color
+        line.thickness = thickness
+        line.attach_to(window)
+    window.render()
     """
     What comes in:
       -- an rg.RoseWindow
@@ -427,7 +446,7 @@ def polygon(window, circle, number_of_segments, color, thickness):
       :type thickness:          int
     """
     # -------------------------------------------------------------------------
-    # TODO: 8. Implement and test this function.
+    # DONE: 8. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # IMPLEMENTATION REQUIREMENT:
@@ -440,7 +459,7 @@ def polygon(window, circle, number_of_segments, color, thickness):
 def run_test_fancy_polygon():
     """ Tests the   fancy_polygon   function. """
     # -------------------------------------------------------------------------
-    # TODO: 9. Implement this TEST function.
+    # DONE: 9. Implement this TEST function.
     #   It TESTS the   fancy_polygon   function defined below.
     #   Include at least ** 1 ** ADDITIONAL test (that YOU write).
     #
@@ -477,6 +496,16 @@ def run_test_fancy_polygon():
     fancy_polygon(window, circle, 20, 7, 'lime green', 5)
     window.close_on_mouse_click()
 
+    # Test 4 (on another window):
+    title = ('FANCY POLYGON test 3:  20 lime green lines on blue circle,'
+             + ' hops = 25.')
+    window = rg.RoseWindow(480, 350, title)
+
+    circle = rg.Circle(rg.Point(240, 165), 150)
+    circle.fill_color = 'blue'
+    fancy_polygon(window, circle, 51, 25, 'red', 1)
+    window.close_on_mouse_click()
+
     # -------------------------------------------------------------------------
     # Test 4:  (YOU write THIS test).
     #   If you wish, try even more tests to get some really cool
@@ -491,6 +520,15 @@ def run_test_fancy_polygon():
 
 def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color,
                   thickness):
+    circle.attach_to(window)
+    points = generate_points_on_circle(circle, number_of_lines)
+    for k in range(len(points)):
+        line = rg.Line(points[k], points[k - hops_to_next_point])
+        line.attach_to(window)
+        line.color = color
+        line.thickness = thickness
+        line.attach_to(window)
+    window.render()
     """
     What comes in:
       -- an rg.RoseWindow
@@ -548,7 +586,7 @@ def fancy_polygon(window, circle, number_of_lines, hops_to_next_point, color,
       :type thickness:       int
     """
     # -------------------------------------------------------------------------
-    # TODO: 10. Implement and test this function.
+    # DONE: 10. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # IMPLEMENTATION REQUIREMENT:
